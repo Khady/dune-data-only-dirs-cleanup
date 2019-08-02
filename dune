@@ -1,0 +1,12 @@
+(rule
+ (targets from_spec_a.sexp.gen)
+ (deps (source_tree spec_a))
+ (action
+  (with-stdout-to %{targets}
+   (bash "ls spec_a/**/*.txt | wc -l"))))
+
+(alias
+ (name gen_spec_a)
+ (action (diff from_spec_a.sexp from_spec_a.sexp.gen)))
+
+(data_only_dirs spec_a spec_b)
